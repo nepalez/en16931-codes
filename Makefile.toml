@@ -1,0 +1,48 @@
+# `cargo-make` tasks. The `check` task is the single gate for the workspace:
+# formatting, linting, and tests for every feature alone and for all features together.
+# The crate has a feature per code list, so the full powerset is not checked.
+
+[config]
+# Run each task once at the workspace root; `cargo-hack` fans out over members.
+default_to_workspace = false
+# Do not load the predefined `cargo-make` tasks, so `check` is exactly what is
+# declared here and inherits no built-in `cargo check` step.
+skip_core_tasks = true
+
+[tasks.check]
+description = "Format check, clippy, and tests for each feature and for all features."
+dependencies = ["fmt-check", "clippy", "clippy-all", "test", "test-all"]
+
+[tasks.fmt-check]
+description = "Verify formatting of every crate."
+command = "cargo"
+args = ["fmt", "--all", "--", "--check"]
+
+[tasks.clippy]
+description = "Lint every feature alone, treating warnings as errors."
+command = "cargo"
+args = [
+    "hack",
+    "--workspace",
+    "--each-feature",
+    "clippy",
+    "--all-targets",
+    "--",
+    "-D",
+    "warnings",
+]
+
+[tasks.clippy-all]
+description = "Lint all features together, treating warnings as errors."
+command = "cargo"
+args = ["clippy", "--workspace", "--all-features", "--all-targets", "--", "-D", "warnings"]
+
+[tasks.test]
+description = "Run tests for every feature alone."
+command = "cargo"
+args = ["hack", "--workspace", "--each-feature", "test"]
+
+[tasks.test-all]
+description = "Run tests with all features together."
+command = "cargo"
+args = ["test", "--workspace", "--all-features"]

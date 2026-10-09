@@ -1,0 +1,44 @@
+[package]
+name = "en16931-codes"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license = "MIT AND CC-BY-4.0"
+authors.workspace = true
+repository.workspace = true
+keywords.workspace = true
+categories.workspace = true
+description = "The code lists of EN 16931 as published by the European Commission (version 17b)"
+readme = "../README.md"
+
+[features]
+default = []
+serde = ["dep:serde"]
+case-insensitive = []
+generated-tests = []
+country = []
+currency = []
+identifier-scheme = []
+document-type = []
+reference-qualifier = []
+vat-identifier-scheme = []
+tax-registration-scheme = []
+vat-category-scheme = []
+tax-point-date = []
+text-subject = []
+payment-means = []
+tax-category = []
+allowance-reason = []
+item-classification = []
+charge-reason = []
+media-type = []
+electronic-address-scheme = []
+exemption-reason = []
+unit = []
+
+[dependencies]
+en16931-codes-macros.workspace = true
+serde = { workspace = true, optional = true }
+
+[dev-dependencies]
+serde_json.workspace = true

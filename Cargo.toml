@@ -1,0 +1,23 @@
+[workspace]
+resolver = "3"
+members = ["en16931-codes", "en16931-codes-macros"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.85"
+license = "MIT"
+authors = ["Andrew Kozin"]
+repository = "https://github.com/nepalez/en16931-codes"
+keywords = ["en16931", "einvoicing", "code-lists", "peppol"]
+categories = ["encoding", "parser-implementations"]
+
+[workspace.dependencies]
+calamine = "0.35.0"
+en16931-codes-macros = { path = "en16931-codes-macros", version = "0.1.0" }
+heck = "0.5.0"
+proc-macro2 = "1.0.107"
+quote = "1.0.47"
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.151"
+syn = { version = "3.0.4", features = ["full", "parsing", "extra-traits"] }
